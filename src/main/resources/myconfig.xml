@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="ps" class="com.example.ConsolePrinter" autowire-candidate="false"/>
+    <bean id="printerService" class="com.example.FilePrinter" />
+    <!--    <bean id="otherDependency" class="com.example.OtherDependency" autowire-candidate="false"/>-->
+    <!--    <bean id="otherDependency" class="com.example.OtherDependency" />-->
+    <!--    <bean id="otherDependency2" class="com.example.OtherDependency"/>-->
+    <!--    <bean id="otherDependency3" class="com.example.OtherDependency"/>-->
+
+    <bean id="client" class="com.example.Client" autowire="byType" init-method="init" destroy-method="kill">
+    </bean>
+
+    <bean id="ambiguity" class="com.example.Ambiguity">
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg value="2"/>
+    </bean>
+
+</beans>

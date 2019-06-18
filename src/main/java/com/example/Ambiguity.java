@@ -1,5 +1,8 @@
 package com.example;
 
+import org.springframework.stereotype.Component;
+
+// @Component
 public class Ambiguity {
 
     private final String message;
@@ -11,6 +14,13 @@ public class Ambiguity {
     }
 
     public void show() {
-        System.out.println(message + number);
+        System.out.println(this);
+    }
+
+    @Override public String toString() {
+        return "Ambiguity{" +
+                "message='" + message + '\'' +
+                ", number=" + number +
+                '}';
     }
 }

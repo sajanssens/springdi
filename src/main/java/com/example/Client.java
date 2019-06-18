@@ -1,58 +1,58 @@
 package com.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.inject.Inject;
 import java.util.List;
 
 @Component
 public class Client {
 
+    // @Autowired
+    // private javax.inject.Provider<OtherDependency> otherDependencyProvider;
+
     @Autowired
-    private javax.inject.Provider<OtherDependency> otherDependencyProvider;
-
-
-    @Inject
     @Qualifier("file")
     private PrinterService printerService;
-    // private OtherDependency otherDependency;
+
+    @Autowired
+    private OtherDependency otherDependency;
 
     @Autowired
     private List<PrinterService> printerServices;
 
-    // public Client() {
-    // }
-    //
-    // public Client(PrinterService ps) {
-    //     this.printerService=ps;
-    // }
+    public Client() {}
 
-    // public Client(PrinterService printerService/*, OtherDependency otherDependency*/) {
-    //     this.printerService = printerService;
-    //     // this.otherDependency = otherDependency;
-    // }
+    // ctor injection:
+    public Client(PrinterService printerService, OtherDependency otherDependency) {
+        this.printerService = printerService;
+        this.otherDependency = otherDependency;
+    }
 
     public void usePrinter() {
         this.printerService.print("I'm the Client!");
-        OtherDependency otherDependency = otherDependencyProvider.get();
+        // OtherDependency otherDependency = otherDependencyProvider.get();
         otherDependency.doSomething();
 
-        printerServices.forEach(ps -> ps.print("Multi"));
+        // printerServices.forEach(ps -> ps.print("Multi"));
     }
 
-    @Lookup
-    private OtherDependency getOtherDependency() {
-        return null;
-    }
-
-    // public void setPrinterService(PrinterService printerService) {
-    //     this.printerService = printerService;
+    // @Lookup
+    // private OtherDependency getOtherDependency() {
+    //     return null;
     // }
+
+    // setter injection:
+    public void setPrinterService(PrinterService printerService) {
+        this.printerService = printerService;
+    }
+
+    public void setOtherDependency(OtherDependency otherDependency) {
+        this.otherDependency = otherDependency;
+    }
 
     @PreDestroy
     private void kill() {
